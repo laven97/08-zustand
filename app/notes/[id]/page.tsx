@@ -6,7 +6,6 @@ import {
 import NoteDetailClient from "./NoteDetails.client";
 import { fetchNoteById } from "@/lib/api";
 import { Metadata } from "next";
-import { title } from "process";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -18,10 +17,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const note = await fetchNoteById(id);
 
   return {
-    title: "Note by ID",
+    title: note.title,
     description: note.content.slice(0, 160),
     openGraph: {
-      title: "Note by ID",
+      title: note.title,
       description: note.content.slice(0, 160),
       url: `http://localhost:3000/notes/${note.id}`,
       images: [
