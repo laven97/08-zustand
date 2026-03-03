@@ -1,0 +1,51 @@
+import type { Metadata } from "next";
+import { Geist, Geist_Mono, Roboto } from "next/font/google";
+import "./globals.css";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
+import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-roboto",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: "NoteHub",
+  description: "Geting,creating,deleting notes",
+  openGraph: {
+    title: "NoteHub",
+    description: "NoteHub for your notes to managed your plans better",
+    url: "http://localhost:3000",
+    images: {
+      url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+      width: 1536,
+      height: 1024,
+      alt: "NoteHub",
+    },
+  },
+};
+
+export default function RootLayout({
+  children,
+  modal,
+}: Readonly<{
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={roboto.variable}>
+        <TanStackProvider>
+          <Header />
+          {children}
+          {modal}
+          <div id="modal-root" />
+          <Footer />
+        </TanStackProvider>
+      </body>
+    </html>
+  );
+}
