@@ -1,28 +1,14 @@
 "use client";
 
 import { createNote } from "@/lib/api";
-import { NoteFormValues } from "@/types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import css from "./NoteForm.module.css";
-import * as Yup from "yup";
 import React from "react";
 import { initialDraft, useNoteStore } from "@/lib/store/noteStore";
 import { useRouter } from "next/navigation";
 
-const validationSchema = Yup.object({
-  title: Yup.string()
-    .required("Title is required")
-    .min(3, "Title must be at least 3 characters")
-    .max(50, "Title must be at most 50 characters"),
-  content: Yup.string().max(500, "Content must be at most 500 characters"),
-  tag: Yup.string()
-    .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"])
-    .required("Tag is required"),
-});
-
 export default function NoteForm() {
-  const queryClien = useQueryClient();
+  const queryClient = useQueryClient();
   const router = useRouter();
   const { draft, setDraft, clearDraft } = useNoteStore();
 
@@ -30,11 +16,11 @@ export default function NoteForm() {
 
   const mutation = useMutation({
     mutationFn: createNote,
-    onSuccess: () => [
-      queryClien.invalidateQueries({ queryKey: ["notes"] }),
-      clearDraft(),
-      router.back,
-    ],
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] }),
+        clearDraft(),
+        router.back;
+    },
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -42,7 +28,7 @@ export default function NoteForm() {
     mutation.mutate(formDraft);
   }
 
-  function handelDraftChange(
+  function handleDraftChange(
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
@@ -51,7 +37,7 @@ export default function NoteForm() {
   }
 
   function handleCancel() {
-    router.back;
+    router.back();
   }
 
   return (
@@ -64,7 +50,7 @@ export default function NoteForm() {
           name="title"
           className={css.input}
           value={formDraft.title}
-          onChange={handelDraftChange}
+          onChange={handleDraftChange}
           required
         />
       </div>
@@ -77,7 +63,7 @@ export default function NoteForm() {
           rows={8}
           className={css.textarea}
           value={formDraft.content}
-          onChange={handelDraftChange}
+          onChange={handleDraftChange}
         />
       </div>
 
@@ -88,7 +74,7 @@ export default function NoteForm() {
           name="tag"
           className={css.select}
           value={formDraft.tag}
-          onChange={handelDraftChange}
+          onChange={handleDraftChange}
         >
           <option value="Todo">Todo</option>
           <option value="Work">Work</option>
@@ -99,7 +85,11 @@ export default function NoteForm() {
       </div>
 
       <div className={css.actions}>
-        <button type="button" className={css.cancelButton}>
+        <button
+          type="button"
+          className={css.cancelButton}
+          onClick={handleCancel}
+        >
           Cancel
         </button>
         <button type="submit" className={css.submitButton}>

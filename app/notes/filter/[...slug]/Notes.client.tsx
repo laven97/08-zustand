@@ -18,7 +18,6 @@ interface NotesClientProps {
 }
 
 export function NotesClient({ tag }: NotesClientProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [page, setPage] = useState(1);
@@ -66,15 +65,6 @@ export function NotesClient({ tag }: NotesClientProps) {
 
       {isError && <p>Error...</p>}
 
-      {isModalOpen && (
-        <Modal
-          onClose={() => {
-            setIsModalOpen(false);
-          }}
-        >
-          <NoteForm />
-        </Modal>
-      )}
     </div>
   );
 }

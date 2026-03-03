@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: "Note by ID",
       description: "Getting the note by id",
-      url: `http://localhost:3000/notes/${id}`,
+      url: `http://localhost:3000/notes/${notes}`,
       images: [
         {
           url: "https://placehold.co/1200x630",

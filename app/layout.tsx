@@ -19,12 +19,14 @@ export const metadata: Metadata = {
     title: "NoteHub",
     description: "NoteHub for your notes to managed your plans better",
     url: "http://localhost:3000",
-    images: {
-      url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
-      width: 1536,
-      height: 1024,
-      alt: "NoteHub",
-    },
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: 1536,
+        height: 1024,
+        alt: "NoteHub",
+      },
+    ],
   },
 };
 

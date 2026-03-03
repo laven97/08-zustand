@@ -3,10 +3,10 @@ import css from "./not-found.module.css";
 
 export const metadata: Metadata = {
   title: "404 - Page not found",
-  description: "Something went wrong and page can not be founding out",
+  description: "Something went wrong and page cannot be found",
   openGraph: {
     title: "404 - Page not found",
-    description: "Something went wrong and page can not be founding out",
+    description: "Something went wrong and page cannot be found",
     url: "",
     images: [
       {
