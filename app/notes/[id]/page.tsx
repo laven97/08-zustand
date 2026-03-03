@@ -14,15 +14,16 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const notes = fetchNoteById(id);
+
+  const note = await fetchNoteById(id);
 
   return {
     title: "Note by ID",
-    description: "Getting the note by id",
+    description: note.content.slice(0, 160),
     openGraph: {
       title: "Note by ID",
-      description: "Getting the note by id",
-      url: `http://localhost:3000/notes/${notes}`,
+      description: note.content.slice(0, 160),
+      url: `http://localhost:3000/notes/${note.id}`,
       images: [
         {
           url: "https://placehold.co/1200x630",

@@ -14,11 +14,11 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: "NoteHub",
-  description: "Geting,creating,deleting notes",
+  description: "Getting, creating, deleting notes",
   openGraph: {
     title: "NoteHub",
     description: "NoteHub for your notes to managed your plans better",
-    url: "http://localhost:3000",
+    url: "https://notehub.com",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
